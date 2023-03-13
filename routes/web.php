@@ -15,6 +15,8 @@ use Inertia\Inertia;
 |
 */
 
+PLOHOI COMMIT
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
