@@ -1,6 +1,9 @@
 <?php
+namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
@@ -19,7 +22,7 @@ class CategoryController extends Controller
     }
 
     public function create() {
-        return Inertia::render('Category/Create');
+        return Inertia::render('Dashboard/Category/Create');
     }
     /**
      * Store a newly created resource in storage.
