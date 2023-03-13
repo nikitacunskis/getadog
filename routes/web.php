@@ -24,7 +24,6 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
- papap
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
