@@ -31,10 +31,10 @@ Route::middleware([
 ])->group(function () {
     Route::middleware(['web'])->group(function () {
         Route::prefix('dashboard')->group(function () {
-            Route::get('', function () {
+            Route::get('/', function () {
                 return Inertia::render('Dashboard');
             })->name('dashboard');
-            
+
             Route::resource('categories', CategoryController::class); 
         });
     });

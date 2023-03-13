@@ -14,9 +14,13 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
+        
         return response()->json($categories);
     }
 
+    public function create() {
+        return Inertia::render('Category/Create');
+    }
     /**
      * Store a newly created resource in storage.
      *
