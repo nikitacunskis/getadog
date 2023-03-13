@@ -24,7 +24,6 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -36,11 +35,11 @@ Route::middleware([
                 return Inertia::render('Dashboard');
             })->name('dashboard');
 
-            Route::resource('categories', CategoryController::class); 
+            Route::resource('categories', CategoryController::class);
         });
     });
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-    
+
 });
