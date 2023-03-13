@@ -18,7 +18,9 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
         
-        return response()->json($categories);
+        return Inertia::render('Dashboard/Category/Index', [
+            'category' => $categories,
+        ]);
     }
 
     public function create() {
@@ -38,10 +40,10 @@ class CategoryController extends Controller
 
         $category = Category::create($request->all());
 
-        return response()->json([
+        return Inertia::render('Dashboard/Category/Create', [
             'message' => 'Category created successfully',
             'category' => $category,
-        ], 201);
+        ]);
     }
 
     /**
@@ -52,7 +54,9 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return response()->json($category);
+        return Inertia::render('Dashboard/Category/Read', [
+            'category' => $category,
+        ]);
     }
 
     /**
@@ -70,10 +74,10 @@ class CategoryController extends Controller
 
         $category->update($request->all());
 
-        return response()->json([
+        return Inertia::render('Dashboard/Category/Update', [
             'message' => 'Category updated successfully',
             'category' => $category,
-        ], 200);
+        ]);
     }
 
     /**
@@ -86,9 +90,8 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        return response()->json([
-            'message' => 'Category deleted successfully',
-            'category' => $category,
-        ], 204);
+        return Inertia::render('Dashboard/Category/Index', [
+            'message' => 'Category deleted successfully'
+        ]);
     }
 }
