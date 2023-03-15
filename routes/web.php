@@ -38,8 +38,17 @@ Route::middleware([
             Route::resource('categories', CategoryController::class);
         });
     });
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
 
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
+
+    Route::prefix('api')->group(function () {
+        // Routes that require authentication
+        Route::get('/categories/list', 'CategoryController@list');
+        Route::post('/categories/store', 'CategoryController@store');
+        Route::post('/categories/edit', 'CategoryController@store');
+        Route::delete('/categories/destroy', 'CategoryController@destroy');
+        Route::post('/categories/{id}', 'CategoryController@store');
+    });
 });

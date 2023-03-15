@@ -23,6 +23,15 @@ class CategoryController extends Controller
         ]);
     }
 
+    public function list() 
+    {
+        $categories = Category::all();
+        
+        return response()->json([
+            'categories' => $categories,
+        ], 204);
+    }
+
     public function create() {
         return Inertia::render('Dashboard/Category/Create');
     }
@@ -90,8 +99,15 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        return Inertia::render('Dashboard/Category/Index', [
-            'message' => 'Category deleted successfully'
-        ]);
+        return response()->json([
+            'message' => 'Category deleted successfully',
+        ], 204);
+    }
+
+    public function getToken(){
+        $token = Category::createToken('frontend-token')->plainTextToken;
+        return response()->json([
+            'api-token' => $token,
+        ], 200);
     }
 }

@@ -86,6 +86,17 @@ const clearPhotoFileInput = () => {
         </template>
 
         <template #form>
+
+            <div class="col-span-6 sm:col-span-4">
+
+                <SecondaryButton
+                    type="button"
+                    class="mt-2"
+                    @click.prevent="getAPIKey"
+                >
+                    Get API token
+                </SecondaryButton>
+            </div>
             <!-- Profile Photo -->
             <div v-if="$page.props.jetstream.managesProfilePhotos" class="col-span-6 sm:col-span-4">
                 <!-- Profile Photo File Input -->
