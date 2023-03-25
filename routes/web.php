@@ -3,8 +3,9 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ApiController;
 use Inertia\Inertia;
-
+use App\Http\Controllers\SocialController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,7 +43,6 @@ Route::middleware([
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-
     Route::prefix('api')->group(function () {
         // Routes that require authentication
         Route::get('/categories/list', 'CategoryController@list');
@@ -52,3 +52,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/categories/{id}', 'CategoryController@store');
     });
 });
+
+
+//Google Authentication Routes
+Route::get('auth/google', [SocialController::class, 'googleRedirect']);
+Route::get('auth/google/callback', [SocialController::class, 'googleLoginOrRegister']);

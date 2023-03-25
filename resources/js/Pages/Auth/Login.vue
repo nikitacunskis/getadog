@@ -79,6 +79,13 @@ const submit = () => {
                 <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Log in
                 </PrimaryButton>
+
+                <!-- <div class="flex items-center justify-center mt-4">
+                    <a href="/auth/google" class="underline text-sm text-gray-600 hover:text-gray-900">
+                        Login With Google
+                    </a>
+                </div> -->
+
             </div>
         </form>
     </AuthenticationCard>
