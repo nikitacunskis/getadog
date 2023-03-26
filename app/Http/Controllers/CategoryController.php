@@ -8,7 +8,7 @@ use Inertia\Inertia;
 class CategoryController extends Controller
 {
     // ...
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -17,12 +17,15 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        
+
         return Inertia::render('Dashboard/Category/Index', [
             'categories' => $categories,
         ]);
     }
 
+    /**
+     * @return \Inertia\Response
+     */
     public function create() {
         return Inertia::render('Dashboard/Category/Create');
     }
