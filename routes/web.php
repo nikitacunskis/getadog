@@ -57,3 +57,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 //Google Authentication Routes
 Route::get('auth/google', [SocialController::class, 'googleRedirect']);
 Route::get('auth/google/callback', [SocialController::class, 'googleLoginOrRegister']);
+
+
+Route::get('/test-vue', function () {
+    return Inertia::render('Test');
+});
