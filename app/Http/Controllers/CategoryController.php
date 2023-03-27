@@ -29,7 +29,7 @@ class CategoryController extends Controller
         
         return response()->json([
             'categories' => $categories,
-        ], 204);
+        ], 200);
     }
 
     public function create() {
@@ -99,15 +99,7 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        return response()->json([
-            'message' => 'Category deleted successfully',
-        ], 204);
+        $this->index();
     }
-
-    public function getToken(){
-        $token = Category::createToken('frontend-token')->plainTextToken;
-        return response()->json([
-            'api-token' => $token,
-        ], 200);
-    }
+    
 }

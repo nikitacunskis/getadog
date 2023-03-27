@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PetController;
 use App\Http\Controllers\ApiController;
 use Inertia\Inertia;
 use App\Http\Controllers\SocialController;
@@ -37,20 +38,15 @@ Route::middleware([
             })->name('dashboard');
 
             Route::resource('categories', CategoryController::class);
+            Route::resource('pets', PetController::class);
         });
     });
 
 });
 
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::prefix('api')->group(function () {
-        // Routes that require authentication
-        Route::get('/categories/list', 'CategoryController@list');
-        Route::post('/categories/store', 'CategoryController@store');
-        Route::post('/categories/edit', 'CategoryController@store');
-        Route::delete('/categories/destroy', 'CategoryController@destroy');
-        Route::post('/categories/{id}', 'CategoryController@store');
-    });
+Route::prefix('api')->group(function () {
+    // Routes that require authentication
+    Route::get('/categories', [CategoryController::class, 'list']);
 });
 
 

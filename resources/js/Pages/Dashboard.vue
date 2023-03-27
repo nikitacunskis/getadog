@@ -17,6 +17,9 @@ import Welcome from '@/Components/Welcome.vue';
                     <ul>
                         <a href="/dashboard/categories/">Categories</a>
                     </ul>
+                    <ul>
+                        <a href="/dashboard/pets/">Pets</a>
+                    </ul>
                 </div>
             </div>
         </div>

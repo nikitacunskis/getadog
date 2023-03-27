@@ -1,80 +1,73 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pet;
 use App\Models\Category;
+use Inertia\Inertia;
 
 class PetController extends Controller
 {
+    // ...
+    
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $pets = Pet::with('category')->get();
-
-        return response()->json($pets);
+        $pets = Pet::all();
+        
+        return Inertia::render('Dashboard/Pets/Index', [
+            'pets' => $pets,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function create()
+    public function list() 
     {
-        $categories = Category::all();
-
-        return response()->json($categories);
+        $pets = Pet::all();
+        
+        return response()->json([
+            'pets' => $pets,
+        ], 204);
     }
 
+    public function create() {
+        $categories = Category::all();
+        return Inertia::render('Dashboard/Pets/Create', [
+            'categories' => $categories,
+        ]);
+    }
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $pet = new Pet;
-        $pet->name = $request->name;
-        $pet->age = $request->age;
-        $pet->category_id = $request->category_id;
-        $pet->save();
+        $request->validate([
+            'name' => 'required|unique:categories|max:255',
+        ]);
 
-        return response()->json($pet);
+        $pets = Pets::create($request->all());
+
+        return Inertia::render('Dashboard/Pets/Create', [
+            'message' => 'Pet created successfully',
+            'pet' => $pet,
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Pet  $pet
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
-    public function show(Pet $pet)
+    public function show(Pet $pets)
     {
-        $pet->load('category');
-
-        return response()->json($pet);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pet  $pet
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function edit(Pet $pet)
-    {
-        $categories = Category::all();
-
-        return response()->json([
+        return Inertia::render('Dashboard/Pets/Read', [
             'pet' => $pet,
-            'categories' => $categories,
         ]);
     }
 
@@ -83,28 +76,35 @@ class PetController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Pet  $pet
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Pet $pet)
     {
-        $pet->name = $request->name;
-        $pet->age = $request->age;
-        $pet->category_id = $request->category_id;
-        $pet->save();
+        $request->validate([
+            'name' => 'required|unique:categories|max:255',
+        ]);
 
-        return response()->json($pet);
+        $pet->update($request->all());
+
+        return Inertia::render('Dashboard/Pets/Update', [
+            'message' => 'Pet updated successfully',
+            'pet' => $pet,
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Pet  $pet
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(Pet $pet)
+    public function destroy(Category $pet)
     {
         $pet->delete();
 
-        return response()->json(['message' => 'Pet deleted successfully.']);
+        return response()->json([
+            'message' => 'Pet deleted successfully',
+        ], 204);
     }
+    
 }

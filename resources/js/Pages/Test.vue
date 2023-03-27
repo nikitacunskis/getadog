@@ -3,5 +3,5 @@ let test = "Hello, World!";
 </script>
 
 <template>
-    Test:<p>{{ test }}</p>
+    Test: <p>{{ test }}</p>
 </template>
