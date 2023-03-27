@@ -64,13 +64,13 @@
             })
         },
         handleSubmit() {
-          // Make an API request to create the pet
-          axios.post('/api/pets', this.form)
+            // Use Inertia to submit the form data to the server
+            this.$inertia.post('/pets', this.form)
             .then(response => {
-              this.$router.push('/pets/' + response.data.id)
+                this.$inertia.visit(response.data.redirect_to)
             })
             .catch(error => {
-              console.log(error)
+                console.log(error)
             })
         }
       }
