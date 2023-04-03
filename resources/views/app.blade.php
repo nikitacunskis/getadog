@@ -1,3 +1,4 @@
+{{ $isPublic = isset($page['props']['isPublic']) ? $page['props']['isPublic'] : false }}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -9,8 +10,14 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Gotham+Pro&display=swap" rel="stylesheet">
+  
 
         <!-- Scripts -->
+        @if($isPublic)
+
+        @endif
+
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead

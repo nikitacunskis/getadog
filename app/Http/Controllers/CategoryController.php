@@ -1,31 +1,40 @@
 <?php
+namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
-    // ...
-    
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function index()
     {
         $categories = Category::all();
-        
-        return response()->json($categories);
+        return Inertia::render('Dashboard/Category/Index', [
+            'categories' => $categories
+        ]);
     }
 
-    public function create() {
-        return Inertia::render('Category/Create');
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Inertia\Response
+     */
+    public function create()
+    {
+        return Inertia::render('Dashboard/Category/Create');
     }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function store(Request $request)
     {
@@ -35,21 +44,23 @@ class CategoryController extends Controller
 
         $category = Category::create($request->all());
 
-        return response()->json([
+        return Inertia::render('Dashboard/Category/Create', [
             'message' => 'Category created successfully',
             'category' => $category,
-        ], 201);
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function show(Category $category)
     {
-        return response()->json($category);
+        return Inertia::render('Dashboard/Category/Read', [
+            'category' => $category,
+        ]);
     }
 
     /**
@@ -57,7 +68,7 @@ class CategoryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function update(Request $request, Category $category)
     {
@@ -67,25 +78,25 @@ class CategoryController extends Controller
 
         $category->update($request->all());
 
-        return response()->json([
+        return Inertia::render('Dashboard/Category/Update', [
             'message' => 'Category updated successfully',
             'category' => $category,
-        ], 200);
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function destroy(Category $category)
     {
         $category->delete();
 
-        return response()->json([
+        return Inertia::render('Dashboard/Category/Destroy', [
             'message' => 'Category deleted successfully',
             'category' => $category,
-        ], 204);
+        ]);
     }
 }
