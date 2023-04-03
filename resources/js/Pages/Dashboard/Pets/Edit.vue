@@ -1,4 +1,5 @@
 <script setup>
+<<<<<<< HEAD
 import { useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
@@ -367,3 +368,10 @@ const onFileChange = () => {
 
 
 </style>
+=======
+
+</script>
+<template>
+
+</template>
+>>>>>>> 8974eb26cd7462531ddf381a4c9089b56051a1f7

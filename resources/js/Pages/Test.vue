@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <template>
     <PublicLayout>
         <div class="grid grid-cols-2 gap-4 md:gap-8 lg:gap-12">
@@ -37,3 +38,12 @@
         background: #F8FAFC;
     }
   </style>
+=======
+<script setup>
+let test = "Hello, World!";
+</script>
+
+<template>
+    Test: <p>{{ test }}</p>
+</template>
+>>>>>>> 8974eb26cd7462531ddf381a4c9089b56051a1f7
