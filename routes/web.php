@@ -2,13 +2,10 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
-use App\Http\Controllers\PetController;
-=======
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\ApiController;
->>>>>>> 8974eb26cd7462531ddf381a4c9089b56051a1f7
+use App\Http\Controllers\FileController;
 use Inertia\Inertia;
 use App\Http\Controllers\SocialController;
 /*
@@ -22,7 +19,7 @@ use App\Http\Controllers\SocialController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/admin', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -30,6 +27,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -37,10 +35,10 @@ Route::middleware([
 ])->group(function () {
     Route::middleware(['web'])->group(function () {
         Route::prefix('dashboard')->group(function () {
-<<<<<<< HEAD
             Route::resource('categories', CategoryController::class); 
             Route::resource('pets', PetController::class);
             Route::post('pets/upload/{petId}', [PetController::class, 'upload'])->name('pets.upload');
+            Route::delete('/pet/deleteimage/{filename}', [PetController::class, 'deleteImage'])->name('files.delete');
         });
     });
     Route::get('/dashboard', function () {
@@ -54,30 +52,14 @@ Route::prefix('api')->group(function() {
     Route::get('/pets/{category}', [PetController::class, 'list']);
 });
 
-=======
-            Route::get('/', function () {
-                return Inertia::render('Dashboard');
-            })->name('dashboard');
-
-            Route::resource('categories', CategoryController::class);
-            Route::resource('pets', PetController::class);
-        });
-    });
-
-});
-
-Route::prefix('api')->group(function () {
-    // Routes that require authentication
-    Route::get('/categories', [CategoryController::class, 'list']);
-});
-
-
-//Google Authentication Routes
-Route::get('auth/google', [SocialController::class, 'googleRedirect']);
-Route::get('auth/google/callback', [SocialController::class, 'googleLoginOrRegister']);
-
-
->>>>>>> 8974eb26cd7462531ddf381a4c9089b56051a1f7
 Route::get('/test-vue', function () {
     return Inertia::render('Test');
 });
+Route::get('/', function () {
+    return Inertia::render('Main');
+});
+Route::get('/dogs', function () {
+    return Inertia::render('Main');
+});
+
+Route::get('/files/{filename}', [FileController::class, 'show'])->name('files.show');

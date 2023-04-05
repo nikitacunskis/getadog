@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\PetImage;
 
 class Pet extends Model
 {
@@ -29,4 +30,10 @@ class Pet extends Model
         'alone',
         'status',
     ];
+    
+    public function petImage()
+    {
+        return $this->hasMany(PetImage::class, 'pet_id', 'id');
+    }
+    
 }

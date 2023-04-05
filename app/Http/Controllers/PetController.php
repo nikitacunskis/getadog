@@ -4,38 +4,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pet;
 use App\Models\Category;
-<<<<<<< HEAD
 use App\Models\PetImage;
-=======
->>>>>>> 8974eb26cd7462531ddf381a4c9089b56051a1f7
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class PetController extends Controller
 {
-<<<<<<< HEAD
     public function index()
     {
         $pets = Pet::all();
 
-=======
-    // ...
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $pets = Pet::all();
-        
->>>>>>> 8974eb26cd7462531ddf381a4c9089b56051a1f7
         return Inertia::render('Dashboard/Pets/Index', [
             'pets' => $pets,
         ]);
     }
 
-<<<<<<< HEAD
     public function create()
     {
         return Inertia::render('Dashboard/Pets/Create');
@@ -71,56 +54,10 @@ class PetController extends Controller
 
     public function edit(Pet $pet)
     {
-        $images = PetImage::where('pet_id', $pet->id);
+        $images = PetImage::all()->where('pet_id', $pet->id);
         return Inertia::render('Dashboard/Pets/Edit', [
             'pet' => $pet,
             'images' => $images,
-=======
-    public function list() 
-    {
-        $pets = Pet::all();
-        
-        return response()->json([
-            'pets' => $pets,
-        ], 204);
-    }
-
-    public function create() {
-        $categories = Category::all();
-        return Inertia::render('Dashboard/Pets/Create', [
-            'categories' => $categories,
-        ]);
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|unique:categories|max:255',
-        ]);
-
-        $pets = Pets::create($request->all());
-
-        return Inertia::render('Dashboard/Pets/Create', [
-            'message' => 'Pet created successfully',
-            'pet' => $pet,
-        ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Pet $pets)
-    {
-        return Inertia::render('Dashboard/Pets/Read', [
-            'pet' => $pet,
->>>>>>> 8974eb26cd7462531ddf381a4c9089b56051a1f7
         ]);
     }
 
@@ -133,7 +70,6 @@ class PetController extends Controller
      */
     public function update(Request $request, Pet $pet)
     {
-<<<<<<< HEAD
         $validatedData = $request->validate([
             'name' => 'required|string',
             'age' => 'required|integer',
@@ -158,18 +94,6 @@ class PetController extends Controller
         $pet->update($validatedData);
     
         return redirect()->route('pets.index', $pet);
-=======
-        $request->validate([
-            'name' => 'required|unique:categories|max:255',
-        ]);
-
-        $pet->update($request->all());
-
-        return Inertia::render('Dashboard/Pets/Update', [
-            'message' => 'Pet updated successfully',
-            'pet' => $pet,
-        ]);
->>>>>>> 8974eb26cd7462531ddf381a4c9089b56051a1f7
     }
 
     /**
@@ -178,11 +102,10 @@ class PetController extends Controller
      * @param  \App\Models\Pet  $pet
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $pet)
+    public function destroy(Pet $pet)
     {
         $pet->delete();
 
-<<<<<<< HEAD
         return redirect()->route('pets.index', $pet);
     }
 
@@ -190,26 +113,55 @@ class PetController extends Controller
     {
         $petsCategory = Category::where('name', $category)->first();
         $pets = Pet::where('status', 'open')->where('category_id', $petsCategory->id)->get();
+        $pets->load('petImage');
 
         return response()->json($pets);
     }
     
     public function upload(Request $request) {
-        dd($request);
-        $path = $request->file('file')->store('uploads');
-      
-        $photo = new PetImage();
-        $photo->url = Storage::url($path);
-        $photo->pet_id = $request->input('pet_id');
-        $photo->save();
-      
-        return redirect()->route('pets.edit', $pet);
-      }
-=======
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = 'pet' . $request->input('id') . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/uploads', $fileName); // store the file in the public/uploads directory
+    
+            PetImage::create([
+                'pet_id' => $request->input('id'),
+                'url' => $fileName,
+            ]);
+            
+            return response()->json([
+                'message' => 'File uploaded successfully',
+                'file' => $fileName
+            ]);
+        }
+    
         return response()->json([
-            'message' => 'Pet deleted successfully',
-        ], 204);
+            'message' => 'No file uploaded'
+        ], 400);
     }
     
->>>>>>> 8974eb26cd7462531ddf381a4c9089b56051a1f7
+    public function deleteImage(string $filename)
+    {
+        $filePath = 'uploads/' . $filename; // assuming the file is stored in the public/uploads directory
+    
+        if (Storage::disk('public')->exists($filePath)) {
+            Storage::disk('public')->delete($filePath);
+
+            
+            $images = PetImage::all()->where('url', $filename);
+            foreach($images as $image) 
+            {
+                $image->delete();
+            }
+
+            return response()->json([
+                'message' => 'File deleted successfully'
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'File not found'
+            ], 404);
+        }
+    }
 }

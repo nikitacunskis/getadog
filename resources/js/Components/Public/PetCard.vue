@@ -1,24 +1,23 @@
-<template>
-    <div class="card">
-      <div class="card-image">
-        <img :src="pet.image" alt="card image" />
-      </div>
-      <div class="card-text">
-        <p>{{ pet.name }}, {{ pet.age }}</p>
-      </div>
-    </div>
-  </template>
-  
-<script>
-export default {
-  props: {
-    pet: {
-      type: Object,
-      required: true
-    }
-  }
-};
+<script setup>
+
+const props = defineProps({
+    pet: Object,
+});
+
+const image = props.pet.pet_image.length === 0 ? 'pet_placeholder.jpg' : props.pet.pet_image[0].url;
+
 </script>
+<template>
+  <div class="card">
+    <div class="card-image">
+      <img :src="'/files/' + image" alt="card image" />
+    </div>
+    <div class="card-text">
+      <p>{{ pet.name }}, {{ pet.age }}</p>
+    </div>
+  </div>
+</template>
+  
 
   <style scoped>
   .card {

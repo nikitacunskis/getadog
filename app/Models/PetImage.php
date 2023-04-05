@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PetImage extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'pet_id',
+        'url'
+    ];
 }

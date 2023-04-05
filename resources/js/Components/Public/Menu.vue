@@ -1,3 +1,37 @@
+<script setup>
+const menu = {
+    activeIndex: 0,
+    hoveredIndex: -1,
+    menuItems: [
+        {
+            'label':'Dogs',
+            'url':'/dogs',
+        },
+        {
+            'label':'Cats',
+            'url':'/cats',
+        },
+        {
+            'label':'Adopted',
+            'url':'/adopted',
+        },
+        {
+            'label':'About',
+            'url':'/about',
+        },
+        {
+            'label':'Contacts',
+            'url':'/contacts',
+        }
+    ],
+}
+const setActive = (index) => {
+    this.activeIndex = index;
+};
+const setHovered = (index) => {
+    this.hoveredIndex = index;
+};
+</script>
 <template>
     <div class="menu">
       <div class="logo">
@@ -5,37 +39,17 @@
         <span class="brand">Strudel</span>
       </div>
       <div class="menu-items">
-        <div class="menu-item" v-for="(item, index) in menuItems" :key="index"
-          :class="{ 'active': activeIndex === index }"
+        <div class="menu-item" v-for="(item, index) in menu.menuItems" :key="index"
+          :class="{ 'active': menu.activeIndex === index }"
           @click="setActive(index)"
           @mouseover="setHovered(index)"
           @mouseleave="setHovered(-1)">
-          <span>{{ item }}</span>
-          <div class="border" v-if="hoveredIndex === index"></div>
+          <span><a :href="item.url">{{ item.label }}</a></span>
+          <div class="border" v-if="menu.hoveredIndex === index"></div>
         </div>
       </div>
     </div>
   </template>
-  
-<script>
-export default {
-    data() {
-        return {
-            activeIndex: 0,
-            hoveredIndex: -1,
-            menuItems: ['Home', 'About', 'Services', 'Contact'],
-        };
-    },
-    methods: {
-        setActive(index) {
-            this.activeIndex = index;
-        },
-        setHovered(index) {
-            this.hoveredIndex = index;
-        },
-    },
-};
-</script>
   
 <style scoped>
 .menu {

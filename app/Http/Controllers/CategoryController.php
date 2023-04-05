@@ -15,7 +15,6 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-<<<<<<< HEAD
         return Inertia::render('Dashboard/Category/Index', [
             'categories' => $categories
         ]);
@@ -28,24 +27,6 @@ class CategoryController extends Controller
      */
     public function create()
     {
-=======
-        
-        return Inertia::render('Dashboard/Category/Index', [
-            'categories' => $categories,
-        ]);
-    }
-
-    public function list() 
-    {
-        $categories = Category::all();
-        
-        return response()->json([
-            'categories' => $categories,
-        ], 200);
-    }
-
-    public function create() {
->>>>>>> 8974eb26cd7462531ddf381a4c9089b56051a1f7
         return Inertia::render('Dashboard/Category/Create');
     }
 
@@ -112,15 +93,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-
-<<<<<<< HEAD
-        return Inertia::render('Dashboard/Category/Destroy', [
-            'message' => 'Category deleted successfully',
-            'category' => $category,
-        ]);
-=======
-        $this->index();
->>>>>>> 8974eb26cd7462531ddf381a4c9089b56051a1f7
     }
-    
+
 }

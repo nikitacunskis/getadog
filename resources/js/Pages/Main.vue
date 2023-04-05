@@ -8,32 +8,33 @@
 </template>
 
 <script>
-  import PublicLayout from '@/Layouts/PublicLayout.vue';
-  import PetCard from '@/Components/Public/PetCard.vue'
-  import axios from 'axios';
-  
-  export default {
-      name: 'TestComponent',
-      components: { PublicLayout, PetCard },
-      data() {
-          return {
-              pets: [],
-          };
-      },
-      mounted() {
-        axios.get('https://api.example.com/users')
-          .then(response => {
-            this.pets = response.data;
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      },
-  };
+import PublicLayout from '@/Layouts/PublicLayout.vue';
+import PetCard from '@/Components/Public/PetCard.vue'
+import axios from 'axios';
+
+export default {
+    name: 'TestComponent',
+    components: { PublicLayout, PetCard },
+    data() {
+        return {
+            pets: [],
+        };
+    },
+    mounted() {
+      axios.get('/api/pets/dogs')
+      .then(response => {
+        this.pets = response.data;
+        console.log(this.pets);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    },
+};
 </script>
 
 <style>
-  body {
-      background: #F8FAFC;
-  }
+body {
+    background: #F8FAFC;
+}
 </style>

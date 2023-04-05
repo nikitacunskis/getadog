@@ -1,6 +1,22 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
+
+const menu = [
+    {
+        'label' : 'Website menu',
+        'link' : '/dashboard'
+    },
+    {
+        'label' : 'Category menu',
+        'link' : '/dashboard/categories'
+    },
+    {
+        'label' : "Pet's menu",
+        'link' : '/dashboard/pets'
+    },
+];
+
 </script>
 
 <template>
@@ -14,18 +30,13 @@ import DashboardLayout from '@/Layouts/DashboardLayout.vue';
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-<<<<<<< HEAD
                     <DashboardLayout>
-                        <p>blah blah blah</p>
+                            <div class="grid grid-cols-2 gap-4">
+                                <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" v-for="item in menu" :href="item.link">
+                                    {{item.label}}
+                                </a>
+                            </div>
                     </DashboardLayout>
-=======
-                    <ul>
-                        <a href="/dashboard/categories/">Categories</a>
-                    </ul>
-                    <ul>
-                        <a href="/dashboard/pets/">Pets</a>
-                    </ul>
->>>>>>> 8974eb26cd7462531ddf381a4c9089b56051a1f7
                 </div>
             </div>
         </div>
