@@ -92,7 +92,7 @@ const setHovered = (index) => {
     justify-content: center;
     height: 56px;
     padding: 0 20px;
-    font-family: sans-serif;
+    font-family: 'Raleway', sans-serif;
     font-size: 16px;
     font-weight: 500;
     line-height: 1.5;
@@ -126,7 +126,7 @@ const setHovered = (index) => {
 }
 
 .brand {
-    font-family: "Gotham Pro", sans-serif;
+    font-family: 'Raleway', sans-serif;
     font-size: 16pt;
     color: #2E68C0;
 }

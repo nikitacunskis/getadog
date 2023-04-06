@@ -50,7 +50,7 @@ const image = props.pet.pet_image.length === 0 ? 'pet_placeholder.jpg' : props.p
   .card-text {
     padding: 20px;
     color: #1A202C;
-    font-family: 'Gotham Pro', sans-serif;
+    font-family: 'Raleway', sans-serif;
     font-size: 20pt;
     font-weight: bold;
   }

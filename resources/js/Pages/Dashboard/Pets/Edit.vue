@@ -107,7 +107,11 @@ const deleteImage = (filename) => {
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
                                         <label class="block font-medium text-gray-700 mb-2" for="size">Size</label>
-                                        <input type="text" name="size" id="size" v-model="form.size" class="form-input rounded-md shadow-sm block w-full">
+                                        <select id="size" v-model="form.size" class="form-select rounded-md shadow-sm block w-full">
+                                            <option value="S">Small</option>
+                                            <option value="M">Middle</option>
+                                            <option value="L">Large</option>
+                                        </select>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
                                         <label class="block font-medium text-gray-700 mb-2" for="breed">Breed</label>

@@ -48,18 +48,37 @@ Route::middleware([
     
 });
 
-Route::prefix('api')->group(function() {
-    Route::get('/pets/{category}', [PetController::class, 'list']);
-});
+
 
 Route::get('/test-vue', function () {
     return Inertia::render('Test');
 });
+
+
+
 Route::get('/', function () {
     return Inertia::render('Main');
 });
 Route::get('/dogs', function () {
     return Inertia::render('Main');
 });
+Route::get('/cats', function () {
+    return Inertia::render('Cats');
+});
+Route::get('/adopted', function () {
+    return Inertia::render('Adopted');
+});
+Route::get('/about', function () {
+    return Inertia::render('About');
+});
+Route::get('/contacts', function () {
+    return Inertia::render('Contacts');
+});
 
+
+/** Open API calls */
+Route::prefix('api')->group(function() {
+    Route::get('/pets/{category}', [PetController::class, 'list']);
+});
+/** File access */
 Route::get('/files/{filename}', [FileController::class, 'show'])->name('files.show');

@@ -31,7 +31,7 @@
     background-color: #F7FAFC;
     border-top: 1px solid #E2E8F0;
     padding: 20px 0;
-    font-family: 'Gotham Pro', sans-serif;
+    font-family: 'Raleway', sans-serif;
   }
   
     /* .border-top {

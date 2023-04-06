@@ -21,7 +21,7 @@ export default {
         };
     },
     mounted() {
-      axios.get('/api/pets/dogs')
+      axios.get('/api/pets/cats')
       .then(response => {
         this.pets = response.data;
         console.log(this.pets);
