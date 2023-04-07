@@ -38,16 +38,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|unique:categories|max:255',
+            'tag' => 'required|unique:categories|max:255',
+            'status' => 'required|boolean',
         ]);
 
-        $category = Category::create($request->all());
+        $category = Category::create($validatedData);
 
-        return Inertia::render('Dashboard/Category/Create', [
-            'message' => 'Category created successfully',
-            'category' => $category,
-        ]);
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -74,6 +73,8 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:categories|max:255',
+            'tag' => 'required|unique:categories|max:255',
+            'status' => 'required|boolean',
         ]);
 
         $category->update($request->all());

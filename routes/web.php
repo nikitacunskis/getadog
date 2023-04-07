@@ -48,9 +48,12 @@ Route::middleware([
     
 });
 
+/* open API routes */
 Route::prefix('api')->group(function() {
     Route::get('/pets/{category}', [PetController::class, 'list']);
 });
+
+/* public routes */
 
 Route::get('/test-vue', function () {
     return Inertia::render('Test');

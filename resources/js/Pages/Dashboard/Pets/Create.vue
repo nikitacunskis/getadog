@@ -11,67 +11,31 @@ const props = defineProps({
 console.log(props.images);
 
 const form = useForm({
-    name: props.pet.name,
-    age: props.pet.age,
-    size: props.pet.size,
-    breed: props.pet.breed,
-    gender: props.pet.gender,
-    child: props.pet.child,
-    cats: props.pet.cats,
-    other_boys: props.pet.other_boys,
-    other_girls: props.pet.other_girls,
-    birds: props.pet.birds,
-    stealing: props.pet.stealing,
-    demolition: props.pet.demolition,
-    activity: props.pet.activity,
-    temperament: props.pet.temperament,
-    city: props.pet.city,
-    commands: props.pet.commands,
-    loyal: props.pet.loyal,
-    alone: props.pet.alone,
-    status: props.pet.status,
-    category_id: props.pet.category_id
+    name: "",
+    age: "",
+    size: "",
+    breed: "",
+    gender: "",
+    child: "",
+    cats: "",
+    other_boys: "",
+    other_girls: "",
+    birds: "",
+    stealing: "",
+    demolition: "",
+    activity: "",
+    temperament: "",
+    city: "",
+    commands: "",
+    loyal: "",
+    alone: "",
+    status: "",
+    category_id: "",
 });
 
 const submitForm = () => {
-    form.patch(route('pets.update', {pet: props.pet.id}));
+    form.post(route('pets.store', {pet: props.pet.id}));
 }
-
-const uploadFile = (event) => {
-    let file = event.target.files[0];
-    let formData = new FormData();
-    formData.append('file', file);
-    formData.append('id', props.pet.id);
-
-    Axios.post('/dashboard/pets/upload/' + props.pet.id, formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    })
-    .then(response => {
-        window.location.reload();
-    })
-    .catch(error => {
-        console.log(error);
-    });
-}
-
-const deleteImage = (filename) => {
-    console.log(filename);
-
-    // let formData = new FormData();
-    // formData.append('file', filename);
-    Axios.delete('/dashboard/pet/deleteimage/' + filename)
-    .then(response => {
-        props.images = props.images.filter(image => image.url !== filename);
-        window.location.reload();
-    })
-    .catch(error => {
-        console.log(error);
-    });
-}
-
-
 </script>
 <template>
     
@@ -90,7 +54,7 @@ const deleteImage = (filename) => {
                             <form @submit.prevent="submitForm">
                                 <div class="grid grid-cols-2 gap-4 mb-4">
                                     <div class="col-span-2 sm:col-span-1">
-                                        <h1 class="text-2xl font-bold mb-4">Edit Pet</h1>
+                                        <h1 class="text-2xl font-bold mb-4">Create Pet</h1>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
                                         <button @click="submitForm" class="btn float-right">Save</button>
@@ -334,34 +298,6 @@ const deleteImage = (filename) => {
                                     </div>
                                 </div>
                             </form>
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <table class="w-full border-collapse">
-                                            <thead class="bg-gray-200">
-                                                <tr>
-                                                    <th class="px-4 py-2 text-left">Image</th>
-                                                    <th class="px-4 py-2 text-left">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr v-for="image in images" :key="image.id">
-                                                    <td class="border-t">
-                                                        <img :src="'/files/' + image.url" />
-                                                    </td>
-                                                    <td class="border-t">
-                                                        <button @click="deleteImage(image.url)">Delete</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <div class="border-2 border-green-500 border-dashed rounded-md p-4">
-                                            <input type="file" @change="uploadFile">
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </DashboardLayout>
                 </div>
