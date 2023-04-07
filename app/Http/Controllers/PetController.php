@@ -21,7 +21,10 @@ class PetController extends Controller
 
     public function create()
     {
-        return Inertia::render('Dashboard/Pets/Create');
+        $categories = Category::all();
+        return Inertia::render('Dashboard/Pets/Create', [
+            'categories' => $categories,
+        ]);
     }
 
     public function store(Request $request)
@@ -45,6 +48,7 @@ class PetController extends Controller
             'commands' => ['nullable', 'string'],
             'loyal' => ['nullable', Rule::in(['Low', 'Middle', 'High'])],
             'alone' => ['nullable', 'integer'],
+            'category_id' => ['required', 'integer'],
         ]);
 
         Pet::create($validatedData);
@@ -54,9 +58,11 @@ class PetController extends Controller
 
     public function edit(Pet $pet)
     {
+        $categories = Category::all();
         $images = PetImage::all()->where('pet_id', $pet->id);
         return Inertia::render('Dashboard/Pets/Edit', [
             'pet' => $pet,
+            'categories' => $categories,
             'images' => $images,
         ]);
     }
@@ -89,6 +95,7 @@ class PetController extends Controller
             'commands' => 'nullable|string',
             'loyal' => 'required|in:Low,Middle,High',
             'alone' => 'nullable|integer',
+            'category_id' => ['required', 'integer'],
         ]);
     
         $pet->update($validatedData);
@@ -111,7 +118,7 @@ class PetController extends Controller
 
     public function list(string $category) 
     {
-        $petsCategory = Category::where('name', $category)->first();
+        $petsCategory = Category::where('tag', $category)->first();
         $pets = Pet::where('status', 'open')->where('category_id', $petsCategory->id)->get();
         $pets->load('petImage');
 

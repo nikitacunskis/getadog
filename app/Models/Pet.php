@@ -29,6 +29,7 @@ class Pet extends Model
         'loyal',
         'alone',
         'status',
+        'category_id'
     ];
     
     public function petImage()

@@ -6,6 +6,7 @@ import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 
 const props = defineProps({
     pet: Object,
+    categories: Object,
     images: Object,
 });
 
@@ -31,6 +32,7 @@ const form = useForm({
     loyal: props.pet.loyal,
     alone: props.pet.alone,
     status: props.pet.status,
+    category_id: props.pet.category_id
 });
 
 const submitForm = () => {
@@ -111,6 +113,12 @@ const deleteImage = (filename) => {
                                             <option value="S">Small</option>
                                             <option value="M">Middle</option>
                                             <option value="L">Large</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-span-2 sm:col-span-1">
+                                        <label class="block font-medium text-gray-700 mb-2" for="category_id">Category</label>
+                                        <select id="category_id" v-model="form.category_id" class="form-select rounded-md shadow-sm block w-full">
+                                            <option v-for="category in props.categories" :value="category.id">{{ category.name }}</option>
                                         </select>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
