@@ -61,5 +61,8 @@ Route::get('/', function () {
 Route::get('/dogs', function () {
     return Inertia::render('Main');
 });
+Route::get('/cats', function () {
+    return Inertia::render('Cats');
+});
 
 Route::get('/files/{filename}', [FileController::class, 'show'])->name('files.show');
