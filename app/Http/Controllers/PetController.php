@@ -6,6 +6,7 @@ use App\Models\Pet;
 use App\Models\Category;
 use App\Models\PetImage;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class PetController extends Controller
@@ -27,6 +28,12 @@ class PetController extends Controller
         ]);
     }
 
+    /**
+     * Validates and stores data to pet database
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return redirct
+     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -35,6 +42,7 @@ class PetController extends Controller
             'size' => ['required', Rule::in(['S', 'M', 'L'])],
             'breed' => ['required', 'string', 'max:255'],
             'gender' => ['required', Rule::in(['M', 'F'])],
+            'category_id' => ['required', 'integer'],
             'child' => ['nullable', 'boolean'],
             'cats' => ['nullable', 'boolean'],
             'other_boys' => ['nullable', 'boolean'],
@@ -48,11 +56,13 @@ class PetController extends Controller
             'commands' => ['nullable', 'string'],
             'loyal' => ['nullable', Rule::in(['Low', 'Middle', 'High'])],
             'alone' => ['nullable', 'integer'],
-            'category_id' => ['required', 'integer'],
+            'status' => ['required', Rule::in(['adopted', 'open'])],
         ]);
 
-        Pet::create($validatedData);
+        // create a new pet using the validated data
+        $pet = Pet::create($validatedData);
 
+        // redirect back to the index page with a success message
         return redirect()->route('pets.index');
     }
 
@@ -95,12 +105,13 @@ class PetController extends Controller
             'commands' => 'nullable|string',
             'loyal' => 'required|in:Low,Middle,High',
             'alone' => 'nullable|integer',
-            'category_id' => ['required', 'integer'],
+            'category_id' => 'required|integer',
+            'status' => ['required', Rule::in(['adopted', 'open'])],
         ]);
     
         $pet->update($validatedData);
     
-        return redirect()->route('pets.index', $pet);
+        return redirect()->route('pets.index');
     }
 
     /**

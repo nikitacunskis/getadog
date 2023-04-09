@@ -9,10 +9,14 @@ const props = defineProps({
 });
 
 const deletePet = async (petId) => {
-    if (confirm('Are you sure you want to delete this pet?')) {
-        useForm({id: petId}).delete(route('pets.destroy', petId));
-    }
+  if (confirm('Are you sure you want to delete this pet?')) {
+      useForm({id: petId}).delete(route('pets.destroy', petId));
+  }
 };
+
+const go = (location) => {
+  window.location.href = location;
+}
 
 </script>
 <template>
@@ -27,6 +31,7 @@ const deletePet = async (petId) => {
       <div class="py-12">
           <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
               <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <button @click="go(route('pets.create'))" class="btn">CREATE</button>
                     <DashboardLayout>
                       <div>
                         <h1>List of Pets</h1>
@@ -92,3 +97,21 @@ const deletePet = async (petId) => {
         </div>
     </AppLayout>
 </template>
+<style>
+
+.btn {
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: #0069d9;
+}
+</style>

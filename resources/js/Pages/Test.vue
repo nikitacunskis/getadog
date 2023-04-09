@@ -1,40 +1,24 @@
-<template>
-  <PublicLayout>
-      <div class="grid grid-cols-2 gap-4 md:gap-8 lg:gap-12">
-          <PetCard v-for="(pet, index) in pets" :key="index" 
-          :pet="pet"/>
-      </div>
-  </PublicLayout>
-</template>
-
-<script>
-import PublicLayout from '@/Layouts/PublicLayout.vue';
-import PetCard from '@/Components/Public/PetCard.vue'
-import axios from 'axios';
-
-export default {
-    name: 'TestComponent',
-    components: { PublicLayout, PetCard },
-    data() {
-        return {
-            pets: [],
-        };
-    },
-    mounted() {
-      axios.get('/api/pets/dogs')
-      .then(response => {
-        this.pets = response.data;
-        console.log(this.pets);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    },
-};
+<script setup>
+  const images = [
+    {src:'/files/pet1_cute-pitbull-dog-pics-193057687.jpg'},
+    {src:'/files/pet1_th-117354932.jpg'},
+    {src:'/files/pet2_th-1436752058.jpg'},
+    {src:'/files/pet3_th-3978815186.jpg'},
+  ];
 </script>
-
-<style>
-body {
-    background: #F8FAFC;
+<template>
+  <div class="carousel">
+    <img v-for="image in images" :src="image.src" class="carousel_item" /> 
+  </div>
+</template>
+<style scoped>
+.carousel {
+  display: inline-block;
+}
+.carousel_item {
+  max-height: 520px;
+  width: auto;
+  height: auto;
+  vertical-align: top;
 }
 </style>
