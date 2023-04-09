@@ -51,6 +51,7 @@ Route::middleware([
 /* open API routes */
 Route::prefix('api')->group(function() {
     Route::get('/pets/{category}', [PetController::class, 'list']);
+    Route::get('/pet/{id}', [PetControllert::class, 'showPet']);
 });
 
 /* public routes */
@@ -66,6 +67,15 @@ Route::get('/dogs', function () {
 });
 Route::get('/cats', function () {
     return Inertia::render('Cats');
+});
+Route::get('/about', function () {
+    return Inertia::render('About');
+});
+Route::get('/contacts', function () {
+    return Inertia::render('Contacts');
+});
+Route::get('/pet/{id}', function () {
+    return Inertia::render('Pet');
 });
 
 Route::get('/files/{filename}', [FileController::class, 'show'])->name('files.show');

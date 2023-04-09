@@ -16,7 +16,7 @@
 
         <!-- Scripts -->
         @if($isPublic)
-
+        <link href="/style/public.css" rel="stylesheet">
         @endif
 
         @routes

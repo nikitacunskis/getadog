@@ -6,9 +6,13 @@ const props = defineProps({
 
 const image = props.pet.pet_image.length === 0 ? 'pet_placeholder.jpg' : props.pet.pet_image[0].url;
 
+const openPet = (id) => {
+  window.location.href = '/pet/' + id;
+}
+
 </script>
 <template>
-  <div class="card">
+  <div class="card" @click="openPet(props.pet.id)">
     <div class="card-image">
       <img :src="'/files/' + image" alt="card image" />
     </div>

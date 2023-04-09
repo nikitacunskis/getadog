@@ -66,12 +66,11 @@
     font-size: 16pt;
     color: #1A202C;
     height: 56px;
-    width: 80px;
     border-bottom: 3px solid transparent;
     cursor: pointer;
     font-weight: normal;
     text-align: center;
-    padding: 0 16px;
+    padding: 16px 16px;
     display: flex;
     justify-content: center;
     align-items: center;

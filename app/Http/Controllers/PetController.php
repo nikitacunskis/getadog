@@ -171,4 +171,14 @@ class PetController extends Controller
             ], 404);
         }
     }
+
+    public function showPet( $id ) {
+        $pet = Pet::find($id);
+        $images = PetImage::all()->where('pet_id', $id);
+
+        return response()->json([
+            'pet' => $pet,
+            'images' => $images,
+        ]);
+    }
 }

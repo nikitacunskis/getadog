@@ -1,0 +1,207 @@
+
+
+/* --- COLORS --- */
+
+/* red */
+.red-100 {
+    color: #FEEDED;
+}
+.red-200 {
+    color: #FDDCDC;
+}
+.red-300 {
+    color: #FCB8B8;
+}
+.red-400 {
+    color: #F87171;
+}
+.red-500 {
+    color: #F63C3C;
+}
+.red-600, .red {
+    color: #ED0B0B;
+}
+.red-700 {
+    color: #CD0A0A;
+}
+.red-800 {
+    color: #AA0808;
+}
+.red-900 {
+    color: #880606;
+}
+ /* orange */
+.orange-100 {
+    color: #FFF8F0;
+}
+.orange-200 {
+    color: #FFEAD4;
+}
+.orange-300 {
+    color: #FECA93;
+}
+.orange-400 {
+    color: #FEB468;
+}
+.orange-500 {
+    color: #FDA447;
+}
+.orange-600, .orange {
+    color: #FD9427;
+}
+.orange-700 {
+    color: #D77E21;
+}
+.orange-800 {
+    color: #A46019;
+}
+.orange-900 {
+    color: #724312;
+}
+
+/* green */
+.green-100 {
+    color: #EAFDEF;
+}
+.green-200 {
+    color: #CFF0D8;
+}
+.green-300 {
+    color: #9FE0B1;
+}
+.green-400 {
+    color: #6FD189;
+}
+.green-500 {
+    color: #3FC162;
+}
+.green-600, .green {
+    color: #0FB23B;
+}
+.green-700 {
+    color: #0C8E2F;
+}
+.green-800 {
+    color: #096B23;
+}
+.green-900 {
+    color: #064718;
+}
+
+/* blue */
+.blue-100 {
+    color: #EBF0F9;
+}
+.blue-200 {
+    color: #D0DFF4;
+}
+.blue-300 {
+    color: #B1C9EC;
+}
+.blue-400 {
+    color: #92B3E5;
+}
+.blue-500 {
+    color: #5488D6;
+}
+.blue-600,.blue {
+    color: #2E68C0;
+}
+.blue-700 {
+    color: #285AA5;
+}
+.blue-800 {
+    color: #214B8A;
+}
+.blue-900 {
+    color: #1B3C6E;
+}
+
+/* grey */
+.grey-100 {
+    color: #F8FAFC;
+}
+.grey-200 {
+    color: #EDF2F7;
+}
+.grey-300 {
+    color: #E2E8F0;
+}
+.grey-400 {
+    color: #CBD5E0;
+}
+.grey-500 {
+    color: #A0AEC0;
+}
+.grey-600 {
+    color: #718096;
+}
+.grey-700 {
+    color: #4A5568;
+}
+.grey-800 {
+    color: #2D3748;
+}
+.grey-900, .grey {
+    color: #1A202C;
+}
+
+/* --- TYPOGRAPHY --- */
+.bold, .medium, .regular, .display, .title-1, .title-2, .base, .small, .tiny, .micro {
+    @extends .gray;
+    font-family: 'Gotham Pro', sans-serif;
+}
+.bold {
+    font-weight: 700;
+}
+
+.medium {
+    font-weight: 500;
+}
+
+.regular {
+    font-weight: 400;
+}
+
+.display {
+    font-size: 24px;
+    line-height: 32px;
+}
+
+.title-1 {
+    font-size: 20px;
+    line-height: 28px;
+}
+
+.title-2 {
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.base {
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.small {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.tiny {
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.micro {
+    font-size: 10px;
+    line-height: 16px;
+}
+
+/* --- Separate line --- */
+
+hr {
+    @extend .gray-300;
+    stroke-width: 1px;
+    width: 100%;
+}
