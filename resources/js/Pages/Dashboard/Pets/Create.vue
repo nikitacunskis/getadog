@@ -1,46 +1,87 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
+import Axios from 'axios';
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 
 const props = defineProps({
     categories: Object,
 });
 
+console.log(props.images);
+
 const form = useForm({
-    name: "",
-    age: "",
-    size: "",
-    breed: "",
-    gender: "",
-    child: "",
-    cats: "",
-    other_boys: "",
-    other_girls: "",
-    birds: "",
-    stealing: "",
-    demolition: "",
-    activity: "",
-    temperament: "",
-    city: "",
-    commands: "",
-    loyal: "",
-    alone: "",
-    status: "",
-    category_id: "",
+    name: '',
+    age: '',
+    size: '',
+    breed: '',
+    gender: '',
+    child: '',
+    cats: '',
+    other_boys: '',
+    other_girls: '',
+    birds: '',
+    stealing: '',
+    demolition: '',
+    activity: '',
+    temperament: '',
+    city: '',
+    commands: '',
+    loyal: '',
+    alone: '',
+    status: '',
+    category_id: ''
 });
 
 const submitForm = () => {
     form.post(route('pets.store'));
 }
+
+const uploadFile = (event) => {
+    let file = event.target.files[0];
+    let formData = new FormData();
+    formData.append('file', file);
+    formData.append('id', props.pet.id);
+
+    Axios.post('/dashboard/pets/upload/' + props.pet.id, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+    .then(response => {
+        window.location.reload();
+    })
+    .catch(error => {
+        console.log(error);
+    });
+}
+
+const deleteImage = (filename) => {
+    console.log(filename);
+
+    // let formData = new FormData();
+    // formData.append('file', filename);
+    Axios.delete('/dashboard/pet/deleteimage/' + filename)
+    .then(response => {
+        props.images = props.images.filter(image => image.url !== filename);
+        window.location.reload();
+    })
+    .catch(error => {
+        console.log(error);
+    });
+}
+
+
 </script>
 <template>
+    
     <AppLayout title="Dashboard">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Dashboard
             </h2>
         </template>
+
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -293,6 +334,34 @@ const submitForm = () => {
                                     </div>
                                 </div>
                             </form>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="w-full border-collapse">
+                                            <thead class="bg-gray-200">
+                                                <tr>
+                                                    <th class="px-4 py-2 text-left">Image</th>
+                                                    <th class="px-4 py-2 text-left">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="image in images" :key="image.id">
+                                                    <td class="border-t">
+                                                        <img :src="'/files/' + image.url" />
+                                                    </td>
+                                                    <td class="border-t">
+                                                        <button @click="deleteImage(image.url)">Delete</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="border-2 border-green-500 border-dashed rounded-md p-4">
+                                            <input type="file" @change="uploadFile">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </DashboardLayout>
                 </div>

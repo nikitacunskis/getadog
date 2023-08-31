@@ -1,24 +1,33 @@
-<script setup>
-  const images = [
-    {src:'/files/pet1_cute-pitbull-dog-pics-193057687.jpg'},
-    {src:'/files/pet1_th-117354932.jpg'},
-    {src:'/files/pet2_th-1436752058.jpg'},
-    {src:'/files/pet3_th-3978815186.jpg'},
-  ];
-</script>
 <template>
-  <div class="carousel">
-    <img v-for="image in images" :src="image.src" class="carousel_item" /> 
-  </div>
+  <ImageCarousel :images="this.images" />
 </template>
-<style scoped>
-.carousel {
-  display: inline-block;
-}
-.carousel_item {
-  max-height: 520px;
-  width: auto;
-  height: auto;
-  vertical-align: top;
-}
-</style>
+
+<script>
+import ImageCarousel from '../Components/Public/ImageCarousel.vue';
+
+export default {
+    data() {
+        return {
+            images: [
+                {
+                  url:"https://via.placeholder.com/1920x1080?text=Image1",
+                },
+                {
+                  url:"https://via.placeholder.com/1920x1080?text=Image2",
+                },
+                {
+                  url:"https://via.placeholder.com/1920x1080?text=Image3",
+                },
+                {
+                  url:"https://via.placeholder.com/1920x1080?text=Image4",
+                },
+                {
+                  url:"https://via.placeholder.com/1920x1080?text=Image5",
+                },
+            ],
+            currentImageIndex: 1,
+        };
+    },
+    components: { ImageCarousel }
+};
+</script>

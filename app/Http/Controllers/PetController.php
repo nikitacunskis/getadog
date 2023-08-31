@@ -8,6 +8,7 @@ use App\Models\PetImage;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
 
 class PetController extends Controller
 {
@@ -108,9 +109,7 @@ class PetController extends Controller
             'category_id' => 'required|integer',
             'status' => ['required', Rule::in(['adopted', 'open'])],
         ]);
-    
         $pet->update($validatedData);
-    
         return redirect()->route('pets.index');
     }
 
@@ -153,7 +152,6 @@ class PetController extends Controller
                 'file' => $fileName
             ]);
         }
-    
         return response()->json([
             'message' => 'No file uploaded'
         ], 400);
@@ -185,11 +183,20 @@ class PetController extends Controller
 
     public function showPet( $id ) {
         $pet = Pet::find($id);
-        $images = PetImage::all()->where('pet_id', $id);
+        $category = Category::find($pet->category_id);
+        $images = PetImage::where('pet_id', $id)->get();
+
+        $pet->category = $category;
 
         return response()->json([
             'pet' => $pet,
             'images' => $images,
         ]);
     }
-}
+
+    public function showOptions() {
+        $options = DB::table('pets_options')->get();
+        return response()->json($options);
+    }
+    
+ }

@@ -51,7 +51,8 @@ Route::middleware([
 /* open API routes */
 Route::prefix('api')->group(function() {
     Route::get('/pets/{category}', [PetController::class, 'list']);
-    Route::get('/pet/{id}', [PetControllert::class, 'showPet']);
+    Route::get('/pet/{id}', [PetController::class, 'showPet']);
+    Route::get('/pets_options',[PetController::class, 'showOptions']);
 });
 
 /* public routes */
